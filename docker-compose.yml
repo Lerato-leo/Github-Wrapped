@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+    volumes:
+      - ./backend/src:/app/src
+    networks:
+      - github-wrapped-network
+    restart: unless-stopped
+    container_name: github-wrapped-backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - github-wrapped-network
+    restart: unless-stopped
+    container_name: github-wrapped-frontend
+
+networks:
+  github-wrapped-network:
+    driver: bridge

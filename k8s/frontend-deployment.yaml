@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-wrapped-frontend
+  namespace: github-wrapped
+  labels:
+    app: github-wrapped
+    component: frontend
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: github-wrapped
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: github-wrapped
+        component: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: leratomatamela1/github-wrapped-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 5173
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5173
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5173
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
