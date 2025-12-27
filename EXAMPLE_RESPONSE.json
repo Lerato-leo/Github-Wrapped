@@ -1,0 +1,138 @@
+{
+  "user": {
+    "username": "example-user",
+    "name": "Example User",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/1?v=4",
+    "profileUrl": "https://github.com/example-user"
+  },
+  "year": 2024,
+  "generatedAt": "2024-12-27T12:00:00.000Z",
+  "dataSource": "Generated from public GitHub data",
+  "slides": {
+    "intro": {
+      "type": "intro",
+      "username": "example-user",
+      "year": 2024
+    },
+    "totalCommits": {
+      "type": "totalCommits",
+      "count": 1337,
+      "text": "You made 1337 commits this year"
+    },
+    "biggestDay": {
+      "type": "biggestDay",
+      "date": "2024-06-15",
+      "count": 25,
+      "text": "Your biggest coding day was June 15 with 25 commits"
+    },
+    "codingTimeHabit": {
+      "type": "codingTimeHabit",
+      "timeOfDay": "Night",
+      "hour": 23,
+      "text": "You code most during the night"
+    },
+    "mostActiveDay": {
+      "type": "mostActiveDay",
+      "weekday": "Tuesday",
+      "dayNumber": 2,
+      "count": 234,
+      "text": "Tuesday was your most active day"
+    },
+    "topLanguages": {
+      "type": "topLanguages",
+      "languages": [
+        {
+          "name": "JavaScript",
+          "bytes": 500000
+        },
+        {
+          "name": "TypeScript",
+          "bytes": 300000
+        },
+        {
+          "name": "Python",
+          "bytes": 200000
+        }
+      ]
+    },
+    "topRepository": {
+      "type": "topRepository",
+      "repository": "my-awesome-project",
+      "commits": 450,
+      "text": "my-awesome-project was your top repo with 450 commits"
+    },
+    "personality": {
+      "type": "personality",
+      "label": "Night Owl",
+      "text": "You're a Night Owl"
+    },
+    "longestInactive": {
+      "type": "longestInactive",
+      "days": 14,
+      "text": "Your longest inactive streak was 14 days"
+    },
+    "yearSummary": {
+      "type": "yearSummary",
+      "totalCommits": 1337,
+      "topLanguage": "JavaScript",
+      "topRepository": "my-awesome-project",
+      "personality": "Night Owl"
+    },
+    "yearComparison": {
+      "type": "yearComparison",
+      "previousYear": 2023,
+      "currentYear": 2024,
+      "commitChange": 150,
+      "commitChangePercent": 12,
+      "activeDaysChange": 10,
+      "activeDaysChangePercent": 5,
+      "trend": "up"
+    },
+    "shareCard": {
+      "type": "shareCard",
+      "username": "example-user",
+      "year": 2024,
+      "totalCommits": 1337,
+      "personality": "Night Owl",
+      "topLanguage": "JavaScript"
+    }
+  },
+  "metrics": {
+    "totalCommits": 1337,
+    "activeDays": 245,
+    "biggestDay": {
+      "date": "2024-06-15",
+      "count": 25
+    },
+    "mostActiveHour": {
+      "hour": 23,
+      "timeOfDay": "Night",
+      "commits": 210
+    },
+    "mostActiveWeekday": {
+      "day": 2,
+      "name": "Tuesday",
+      "commits": 234
+    },
+    "topLanguages": [
+      {
+        "language": "JavaScript",
+        "bytes": 500000
+      },
+      {
+        "language": "TypeScript",
+        "bytes": 300000
+      },
+      {
+        "language": "Python",
+        "bytes": 200000
+      }
+    ],
+    "topRepository": {
+      "name": "my-awesome-project",
+      "commits": 450
+    },
+    "longestInactivePeriod": 14,
+    "personality": "Night Owl"
+  }
+}
