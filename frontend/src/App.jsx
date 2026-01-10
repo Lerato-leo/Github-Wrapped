@@ -14,7 +14,8 @@ function App() {
     setError(null)
     
     try {
-      const response = await axios.get(`http://localhost:5000/wrapped/${username}`, {
+      const baseUrl = import.meta.env.VITE_API_URL || '/api';
+      const response = await axios.get(`${baseUrl}/wrapped?username=${username}`, {
         params: { year: year || new Date().getFullYear() }
       })
       setWrapped(response.data)
