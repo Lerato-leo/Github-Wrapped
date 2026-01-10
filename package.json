@@ -4,6 +4,7 @@
   "description": "GitHub Wrapped - Spotify Wrapped style GitHub activity summary",
   "main": "backend/src/index.js",
   "scripts": {
+    "build": "cd frontend && npm run build",
     "backend": "cd backend && npm start",
     "backend:dev": "cd backend && npm run dev",
     "frontend": "cd frontend && npm run dev",
