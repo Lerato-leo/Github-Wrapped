@@ -200,6 +200,11 @@ Github-Wrapped/
 │   ├── vite.config.js
 │   └── package.json
 │
+├── api/                        # Serverless API functions
+│   ├── health.js              # Health check endpoint
+│   └── wrapped.js             # Wrapped generation endpoint
+│
+├── vercel.json                # Vercel deployment config
 ├── package.json               # Root package.json with shortcuts
 ├── README.md                  # Project documentation
 ├── SETUP.md                   # This file
@@ -239,6 +244,62 @@ npm run build
 
 Output will be in `frontend/dist/` - ready to deploy to any static host.
 
+## Vercel Deployment
+
+GitHub Wrapped is optimized for deployment on Vercel with serverless backend functions.
+
+### Prerequisites
+
+- Vercel account (https://vercel.com)
+- GitHub repository connected to Vercel
+- GitHub personal access token (for higher API rate limits)
+
+### Deployment Steps
+
+1. **Connect your repository to Vercel**
+   - Go to https://vercel.com
+   - Click "Add New..." → "Project"
+   - Import your GitHub repository
+
+2. **Configure environment variables**
+   - In Vercel dashboard, go to Settings → Environment Variables
+   - Add: `GITHUB_TOKEN` = your GitHub personal access token
+   - (Optional) Add: `CORS_ORIGIN` = your deployed domain
+
+3. **Deploy**
+   - Vercel automatically detects the configuration from `vercel.json`
+   - Frontend builds to `frontend/dist/`
+   - Backend API routes are deployed from `/api` directory
+   - Deployment completes in 1-2 minutes
+
+4. **Your deployment includes**
+   - Frontend: Static site hosting
+   - Backend: Serverless functions at `/api/wrapped` and `/api/health`
+   - CORS: Enabled for all origins
+   - GitHub Token: Available to API functions
+
+### After Deployment
+
+- Update frontend to call API from deployed domain (or use relative `/api/` paths)
+- Test with: `https://your-domain.vercel.app`
+- Share your GitHub Wrapped link!
+
+### Troubleshooting Vercel Deployment
+
+**Build fails:**
+- Check Vercel logs for errors
+- Ensure all dependencies are in package.json
+- Verify Node.js version compatibility (18.x recommended)
+
+**API 500 errors:**
+- Check function logs in Vercel dashboard
+- Verify GITHUB_TOKEN is set correctly
+- Check GitHub API rate limits
+
+**CORS errors:**
+- Ensure CORS_ORIGIN is set or use relative `/api/` paths
+- Frontend build must use correct API endpoint
+
 ## Contributing
 
 Feel free to fork and submit pull requests!
@@ -253,7 +314,7 @@ For issues or questions:
 1. Check the README.md
 2. Review EXAMPLE_RESPONSE.json for expected data format
 3. Check browser console (F12) for errors
-4. Check backend terminal for server logs
+4. For deployment issues, check Vercel dashboard logs
 
 ---
 

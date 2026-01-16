@@ -48,25 +48,52 @@ export const getUserRepos = async (username) => {
 
 /**
  * Get all commits for a specific repository in a year
- * Uses search API to find commits by date
+ * Fetches commits with pagination, no token required
  */
 export const getRepoCommits = async (owner, repo, year) => {
   try {
-    const startDate = `${year}-01-01`;
-    const endDate = `${year}-12-31`;
-    
-    const response = await api.get('/search/commits', {
-      params: {
-        q: `repo:${owner}/${repo} author:${owner} committer-date:${startDate}..${endDate}`,
-        per_page: 100,
-        sort: 'committer-date',
-        order: 'asc'
-      }
-    });
+    let commits = [];
+    let page = 1;
+    let hasMore = true;
+    const startDate = new Date(`${year}-01-01`);
+    const endDate = new Date(`${year}-12-31`);
+    endDate.setHours(23, 59, 59, 999);
 
-    return response.data.items || [];
+    // Fetch commits with pagination
+    while (hasMore) {
+      const response = await api.get(`/repos/${owner}/${repo}/commits`, {
+        params: {
+          per_page: 100,
+          page,
+          sha: 'HEAD'
+        }
+      });
+
+      if (response.data.length === 0) {
+        hasMore = false;
+        continue;
+      }
+
+      // Filter commits by year
+      const yearCommits = response.data.filter(commit => {
+        const commitDate = new Date(commit.commit.author.date);
+        return commitDate >= startDate && commitDate <= endDate;
+      });
+
+      commits = commits.concat(yearCommits);
+
+      // Stop if we've passed the year
+      const oldestCommitDate = new Date(response.data[response.data.length - 1].commit.author.date);
+      if (oldestCommitDate < startDate) {
+        hasMore = false;
+      } else {
+        page++;
+      }
+    }
+
+    return commits;
   } catch (error) {
-    // If search API fails, return empty array
+    // If API fails, return empty array
     console.log(`Could not fetch commits for ${owner}/${repo}`);
     return [];
   }

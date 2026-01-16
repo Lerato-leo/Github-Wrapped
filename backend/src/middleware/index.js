@@ -31,7 +31,7 @@ export const errorHandler = (err, req, res, next) => {
   
   if (err.response?.status === 403) {
     return res.status(429).json({
-      error: 'GitHub API rate limit exceeded. Please try again later.'
+      error: 'GitHub API rate limit exceeded. Please add a GITHUB_TOKEN to backend/.env for higher limits (5000 requests/hour instead of 60).'
     });
   }
   
